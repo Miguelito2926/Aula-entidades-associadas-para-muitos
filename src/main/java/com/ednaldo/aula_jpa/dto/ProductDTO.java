@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,14 +17,12 @@ public class ProductDTO {
     private Long id;
     private String name;
     private Double price;
-    List<CategoryDTO> categories;
+    List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO(Product entity) {
         id = entity.getId();
         name = entity.getName();
         price = entity.getPrice();
-        for (Category cat : entity.getCategories()) {
-            categories.add(new CategoryDTO(cat));
-        }
+        categories = entity.getCategories().stream().map(CategoryDTO::new).toList();
     }
 }
