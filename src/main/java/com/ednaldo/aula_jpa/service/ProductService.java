@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ProductService {
@@ -39,5 +41,12 @@ public class ProductService {
     public Page<ProductDTO> listPageProductCategories(Pageable pageable) {
         Page<Product> page = productRepository.findAll(pageable);
         return page.map(ProductDTO::new);
+    }
+
+
+    @Transactional
+    public List<ProductDTO> getProduct() {
+        List<Product> all = productRepository.searchAll();
+        return all.stream().map(ProductDTO::new).toList();
     }
 }

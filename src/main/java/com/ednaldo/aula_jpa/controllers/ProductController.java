@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/products")
@@ -22,6 +24,11 @@ public class ProductController {
     }
 
     @GetMapping
+    public ResponseEntity<List<ProductDTO>> getProduct() {
+        return ResponseEntity.ok(productService.getProduct());
+    }
+
+   // @GetMapping
     public ResponseEntity<Page<ProductDTO>> list(Pageable pageable) {
         return ResponseEntity.ok(productService.listPageProductCategories(pageable));
     }
